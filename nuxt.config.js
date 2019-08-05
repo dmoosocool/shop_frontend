@@ -23,11 +23,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@/assets/css/main.scss'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/vue-fontawesome'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -40,7 +40,13 @@ export default {
    */
   modules: [
     // Doc: https://buefy.github.io/#/documentation
-    'nuxt-buefy',
+    [
+      'nuxt-buefy',
+      {
+        defaultIconComponent: 'vue-fontawesome',
+        defaultIconPack: 'fas'
+      }
+    ],
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios'
   ],
