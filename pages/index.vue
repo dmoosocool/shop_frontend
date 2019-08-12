@@ -1,5 +1,9 @@
 <template>
   <div>
-    hello~
+    <h1 class="title">Hello</h1>
+    <h2 class="subtitle">World</h2>
   </div>
 </template>
+<script>
+export default {}
+</script>

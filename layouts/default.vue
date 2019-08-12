@@ -6,10 +6,7 @@
         <div class="container">
           <div class="navbar-brand">
             <a class="navbar-item">
-              <img
-                src="https://bulma.io/images/bulma-type-white.png"
-                alt="Logo"
-              />
+              Shopoo
             </a>
             <span class="navbar-burger burger" data-target="navbarMenuHeroC">
               <span></span>
@@ -43,12 +40,7 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h1 class="title">
-          Title
-        </h1>
-        <h2 class="subtitle">
-          Subtitle
-        </h2>
+        <nuxt />
       </div>
     </div>
 
@@ -67,8 +59,6 @@
         </div>
       </nav>
     </div>
-
-    <nuxt />
   </section>
 </template>
 

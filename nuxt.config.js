@@ -1,5 +1,12 @@
 export default {
   mode: 'universal',
+
+  /**
+   *  Router Config
+   */
+  router: {
+    middleware: 'check-auth'
+  },
   /*
    ** Headers of the page
    */
