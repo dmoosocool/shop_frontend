@@ -1,5 +1,5 @@
 export default {
-  mode: 'universal',
+  mode: 'spa',
 
   /**
    *  Router Config
@@ -71,4 +71,4 @@ export default {
      */
     extend(config, ctx) {}
   }
-}
+};

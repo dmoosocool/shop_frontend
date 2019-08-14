@@ -1,11 +1,11 @@
-import { getUserFromCookie, getUserFromLocalStorage } from '~/utils/auth'
+import { getUserFromCookie, getUserFromLocalStorage } from '~/utils/auth.js';
 
 export default function({ isServer, store, req }) {
-  if (isServer && !req) return
+  if (isServer && !req) return;
 
   const loggedUser = isServer
     ? getUserFromCookie(req)
-    : getUserFromLocalStorage()
+    : getUserFromLocalStorage();
 
-  store.commit('SET_USER', loggedUser)
+  store.commit('SET_USER', loggedUser);
 }

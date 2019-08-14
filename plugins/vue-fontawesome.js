@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import Vue from 'vue';
+import { library } from '@fortawesome/fontawesome-svg-core';
 // internal icons
 import {
   faCheck,
@@ -15,9 +15,10 @@ import {
   faEyeSlash,
   faCaretDown,
   faCaretUp,
-  faUpload
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  faUpload,
+  faLock
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(
   faCheck,
@@ -33,6 +34,7 @@ library.add(
   faEyeSlash,
   faCaretDown,
   faCaretUp,
-  faUpload
-)
-Vue.component('vue-fontawesome', FontAwesomeIcon)
+  faUpload,
+  faLock
+);
+Vue.component('vue-fontawesome', FontAwesomeIcon);
