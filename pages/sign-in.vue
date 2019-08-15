@@ -68,8 +68,13 @@ export default {
   },
 
   methods: {
-    signin() {
-      console.log(this.email);
+    async signin() {
+      const { email, password } = this;
+
+      await this.$axios.$post('/auth/login', {
+        name: email,
+        password
+      });
     }
   }
 };

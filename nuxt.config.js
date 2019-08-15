@@ -1,3 +1,15 @@
+const { NODE_ENV } = process.env;
+let env = '';
+
+switch (NODE_ENV) {
+  case 'development':
+    env = '';
+    break;
+  case 'production':
+    env = '.prod';
+    break;
+}
+
 export default {
   mode: 'spa',
 
@@ -34,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vue-fontawesome'],
+  plugins: ['~/plugins/vue-fontawesome', '~/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -55,13 +67,23 @@ export default {
       }
     ],
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['@nuxtjs/dotenv', { filename: `.env${env}` }]
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    proxy: true
+  },
+
+  /** 设置代理 */
+  proxy: {
+    '/auth/': 'http://localhost:3001/',
+    '/user/': 'http://localhost:3001/'
+  },
+
   /*
    ** Build configuration
    */
