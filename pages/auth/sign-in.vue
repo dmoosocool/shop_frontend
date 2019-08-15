@@ -14,39 +14,37 @@
                 </p>
               </header>
               <div class="card-content">
-                <form method="POST">
-                  <b-field label="E-mail Address">
-                    <b-input type="email" required></b-input>
-                  </b-field>
+                <b-field label="E-mail Address">
+                  <b-input v-model="email" type="email" required />
+                </b-field>
 
-                  <b-field label="Password">
-                    <b-input type="passowrd" required></b-input>
-                  </b-field>
+                <b-field label="Password">
+                  <b-input v-model="password" type="passowrd" required />
+                </b-field>
 
-                  <div class="field">
-                    <b-checkbox>Remember me</b-checkbox>
+                <div class="field">
+                  <b-checkbox>Remember me</b-checkbox>
+                </div>
+
+                <hr />
+                <div class="field is-grouped">
+                  <div class="control">
+                    <b-button type="is-black" @click="signin()">
+                      Login
+                    </b-button>
                   </div>
 
-                  <hr />
-                  <div class="field is-grouped">
-                    <div class="control">
-                      <b-button native-type="submit" type="is-black">
-                        Login
-                      </b-button>
-                    </div>
-
-                    <div class="control">
-                      <b-button
-                        class="is-outlined"
-                        tag="router-link"
-                        to="/password-recovery"
-                        type="is-black"
-                      >
-                        Forgot Password?
-                      </b-button>
-                    </div>
+                  <div class="control">
+                    <b-button
+                      class="is-outlined"
+                      tag="router-link"
+                      to="/password-recovery"
+                      type="is-black"
+                    >
+                      Forgot Password?
+                    </b-button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -55,6 +53,27 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+
+  mounted() {
+    console.log('123');
+  },
+
+  methods: {
+    signin() {
+      console.log(this.email);
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 .card {
