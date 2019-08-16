@@ -6,6 +6,9 @@
 </template>
 <script>
 export default {
-  middleware: 'authenticated'
+  middleware: 'authenticated',
+  async asyncData({ $axios }) {
+    await $axios.get('/users/test');
+  }
 };
 </script>

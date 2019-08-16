@@ -18,6 +18,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "@nuxtjs/axios": "^5.5.4",
     "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/toast": "^3.2.1",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "node-sass": "^4.12.0",

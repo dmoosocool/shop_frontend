@@ -68,8 +68,14 @@ export default {
     ],
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+
+    // Doc: https://github.com/nuxt-community/modules/tree/master/packages/toast
+    '@nuxtjs/toast',
+
+    // Doc: https://github.com/nuxt-community/axios-module
     ['@nuxtjs/dotenv', { filename: `.env${env}` }]
   ],
+
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -78,10 +84,30 @@ export default {
     proxy: true
   },
 
-  /** 设置代理 */
+  /**
+   * Setting proxy.
+   */
   proxy: {
     '/auth/': 'http://localhost:3001/',
-    '/user/': 'http://localhost:3001/'
+    '/users/': 'http://localhost:3001/'
+  },
+
+  /**
+   * Setting toast.
+   */
+  toast: {
+    position: 'top-center',
+    duration: 3000,
+    register: [
+      // Register custom toasts
+      {
+        name: 'my_error',
+        message: 'Oops.. something went wrong.',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
   },
 
   /*

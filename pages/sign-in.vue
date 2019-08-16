@@ -19,7 +19,13 @@
                 </b-field>
 
                 <b-field label="Password">
-                  <b-input v-model="password" type="passowrd" required />
+                  <b-input
+                    v-model="password"
+                    type="password"
+                    required
+                    password-reveal
+                  >
+                  </b-input>
                 </b-field>
 
                 <div class="field">
@@ -63,18 +69,18 @@ export default {
     };
   },
 
-  mounted() {
-    console.log('123');
-  },
-
   methods: {
     async signin() {
       const { email, password } = this;
 
-      await this.$axios.$post('/auth/login', {
+      const result = await this.$axios.$post('/auth/login', {
         name: email,
         password
       });
+
+      if (result) {
+        window.localStorage.setItem('user', JSON.stringify(result));
+      }
     }
   }
 };
