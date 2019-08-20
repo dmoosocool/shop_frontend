@@ -80,6 +80,8 @@ export default {
 
       if (result) {
         window.localStorage.setItem('user', JSON.stringify(result));
+
+        this.$router.replace('/');
       }
     }
   }

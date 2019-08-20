@@ -1,28 +1,20 @@
 export default function({ $axios, redirect, app, store }) {
-  // $axios.onResponse((response) => {
-  //   if (response.status === 200) {
-  //     return Promise.resolve(response);
-  //   } else {
-  //     console.log(response);
-  //   }
-  // });
-
   $axios.onRequest((config) => {
-    const { token } = store.getters.loggedUser;
-    // $axios.setToken(token, 'Bearer');
+    if (store.getters.loggedUser) {
+      const { token } = store.getters.loggedUser;
 
-    config.headers.Authorization = `Bearer ${token}`;
-    console.log(config, token);
+      // auto set Bearer token.
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
   });
 
   $axios.onError((error) => {
-    // const code = parseInt(error.response && error.response.status);
-
-    console.log(error);
     const {
       response: {
-        data: { message, status }
+        status, // http状态码.
+        data: { message }
       }
     } = error;
 
@@ -31,7 +23,13 @@ export default function({ $axios, redirect, app, store }) {
     $toast.global.my_error();
     $toast.error(message);
 
-    if (status !== 404) {
+    if (
+      error.request.responseURL.includes('/auth/test') > -1 &&
+      status === 401
+    ) {
+      localStorage.setItem('user', null);
+      store.commit('SET_USER', null);
+    } else if (status !== 404) {
       // handle this error, will not redirect to error page..
       return {};
     }

@@ -8,7 +8,7 @@
 export default {
   middleware: 'authenticated',
   async asyncData({ $axios }) {
-    await $axios.get('/users/test');
+    await $axios.get('/auth/test');
   }
 };
 </script>
