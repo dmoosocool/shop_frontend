@@ -1,24 +1,56 @@
-@import "~bulma/sass/utilities/_all";
+@import '~bulma/sass/utilities/_all';
 
 // Set your colors
-$primary: #9d8f8f;
+$primary: #3554e0;
 $primary-invert: findColorInvert($primary);
 $twitter: #7c7575;
 $twitter-invert: findColorInvert($twitter);
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
-    "white": ($white, $black),
-    "black": ($black, $white),
-    "light": ($light, $light-invert),
-    "dark": ($dark, $dark-invert),
-    "primary": ($primary, $primary-invert),
-    "info": ($info, $info-invert),
-    "success": ($success, $success-invert),
-    "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
-    "twitter": ($twitter, $twitter-invert)
+  'white': (
+    $white,
+    $black
+  ),
+  'black': (
+    $black,
+    $white
+  ),
+  'light': (
+    $light,
+    $light-invert
+  ),
+  'dark': (
+    $dark,
+    $dark-invert
+  ),
+  'primary': (
+    $primary,
+    $primary-invert
+  ),
+  'info': (
+    $info,
+    $info-invert
+  ),
+  'success': (
+    $success,
+    $success-invert
+  ),
+  'warning': (
+    $warning,
+    $warning-invert
+  ),
+  'danger': (
+    $danger,
+    $danger-invert
+  ),
+  'twitter': (
+    $twitter,
+    $twitter-invert
+  )
 );
+
+$body-size: 14px;
 
 // Links
 $link: $primary;
@@ -28,7 +60,22 @@ $link-focus-border: $primary;
 // customs
 $footer-background-color: $primary;
 $body-background-color: #f8f8f8;
-// Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+$navbar-height: 6rem !default;
+$navbar-item-img-max-height: 6rem;
 
+// memu
+$menu-item-color: #9899ac;
+$menu-item-radius: 0;
+$menu-list-link-padding: 14px 25px;
+$menu-item-hover-background-color: #1b1b28;
+$menu-item-hover-color: findColorInvert($menu-item-hover-background-color);
+
+$menu-item-active-background-color: #1b1b28;
+$menu-item-active-color: findColorInvert($menu-item-hover-background-color);
+
+$menu-list-border-left: 0;
+$menu-nested-list-margin: 0;
+$menu-nested-list-padding-left: 0;
+// Import Bulma and Buefy styles
+@import '~bulma';
+@import '~buefy/src/scss/buefy';

@@ -46,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vue-fontawesome', '~/plugins/axios'],
+  plugins: ['~/plugins/axios'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -59,13 +59,7 @@ export default {
    */
   modules: [
     // Doc: https://buefy.github.io/#/documentation
-    [
-      'nuxt-buefy',
-      {
-        defaultIconComponent: 'vue-fontawesome',
-        defaultIconPack: 'fas'
-      }
-    ],
+    ['nuxt-buefy', { materialDesignIcons: false }],
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
 
