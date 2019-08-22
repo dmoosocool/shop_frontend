@@ -2,11 +2,9 @@ export default function({ $axios, redirect, app, store }) {
   $axios.onRequest((config) => {
     if (store.getters.loggedUser) {
       const { token } = store.getters.loggedUser;
-
       // auto set Bearer token.
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   });
 
@@ -23,10 +21,7 @@ export default function({ $axios, redirect, app, store }) {
     $toast.global.my_error();
     $toast.error(message);
 
-    if (
-      error.request.responseURL.includes('/auth/test') > -1 &&
-      status === 401
-    ) {
+    if (error.request.responseURL.includes('/auth/') > -1 && status === 401) {
       localStorage.removeItem('user');
       store.commit('SET_USER', null);
     } else if (status !== 404) {

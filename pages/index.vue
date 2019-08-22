@@ -1,6 +1,6 @@
 <template>
   <div id="admin-index">
-    <h1>hello ~</h1>
+    <h1>hello ~ {{ loggedUser.name }}</h1>
   </div>
 </template>
 <script>
@@ -10,12 +10,14 @@ export default {
 
   data() {
     return {
-      title: '后台首页'
+      title: '后台首页',
+      loggedUser: this.$store.state.user
     };
   },
   async asyncData({ $axios }) {
     await $axios.get('/auth/test');
   },
+
   head() {
     return {
       title: this.title

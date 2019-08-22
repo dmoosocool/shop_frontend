@@ -72,7 +72,7 @@
               class="navbar-item button is-primary is-unselectable"
               role="button"
             >
-              <span>Hello~ dmoo@kya.cc</span>
+              <span>Hello~ {{ $store.state.user.name }}</span>
               <b-icon icon="menu-down"></b-icon>
             </a>
             <b-dropdown-item aria-role="listitem">

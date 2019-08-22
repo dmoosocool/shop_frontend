@@ -85,17 +85,20 @@ export default {
   methods: {
     async signin() {
       const { email, password } = this;
+      // const { error } = this.$parent.nuxt;
+      // console.log(this.$parent.nuxt.error);
+      try {
+        const result = await this.$axios.$post('/auth/login', {
+          name: email,
+          password
+        });
 
-      const result = await this.$axios.$post('/auth/login', {
-        name: email,
-        password
-      });
+        if (result) {
+          window.localStorage.setItem('user', JSON.stringify(result));
 
-      if (result) {
-        window.localStorage.setItem('user', JSON.stringify(result));
-
-        this.$router.replace('/');
-      }
+          this.$router.replace('/');
+        }
+      } catch (e) {}
     }
   }
 };
