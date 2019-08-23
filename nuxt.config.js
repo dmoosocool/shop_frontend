@@ -38,7 +38,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: 'rgba(0,0,0,0.8)' },
   /*
    ** Global CSS
    */

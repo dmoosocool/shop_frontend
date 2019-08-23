@@ -9,11 +9,14 @@
           <b-menu-item
             icon="information-outline"
             icon-pack="mdi"
-            label="Info"
+            active
+            label="后台管理首页"
+            tag="router-link"
+            to="/"
           ></b-menu-item>
-          <b-menu-item icon="settings" icon-pack="mdi" active expanded>
+          <b-menu-item icon="settings" icon-pack="mdi">
             <template slot="label" slot-scope="props">
-              Administrator
+              常用管理
               <b-icon
                 class="is-pulled-right"
                 icon-pack="mdi"
@@ -23,7 +26,9 @@
             <b-menu-item
               icon="account"
               icon-pack="mdi"
-              label="Users"
+              label="用户管理"
+              tag="router-link"
+              to="/user"
             ></b-menu-item>
             <b-menu-item
               icon="cellphone-link"
@@ -42,16 +47,6 @@
             <b-menu-item label="Addresses"></b-menu-item>
           </b-menu-item>
         </b-menu-list>
-        <b-menu-list>
-          <b-menu-item
-            label="Expo"
-            icon="link"
-            icon-pack="mdi"
-            tag="router-link"
-            target="_blank"
-            to="/expo"
-          ></b-menu-item>
-        </b-menu-list>
         <b-menu-list label="Actions">
           <b-menu-item label="Logout"></b-menu-item>
         </b-menu-list>
@@ -63,7 +58,7 @@
         <div class="column is-2 is-offset-10">
           <b-dropdown
             hoverable
-            aria-role="list"
+            aria-role="menu"
             class="admin-user-action"
             position="is-bottom-left"
           >
@@ -76,11 +71,14 @@
               <b-icon icon="menu-down"></b-icon>
             </a>
             <b-dropdown-item aria-role="listitem">
-              <div class="media">
-                <b-icon class="media-left" icon="earth"></b-icon>
+              <div class="media logout">
+                <b-icon
+                  class="media-left"
+                  icon="exit-to-app"
+                  pack="mdi"
+                ></b-icon>
                 <div class="media-content">
-                  <h3>Public</h3>
-                  <small>Everyone can see</small>
+                  <h3>Exit Account</h3>
                 </div>
               </div>
             </b-dropdown-item>
@@ -155,6 +153,13 @@ export default {};
       .dropdown.admin-user-action {
         vertical-align: middle;
         margin-right: 10px;
+        .dropdown-menu .dropdown-content .dropdown-item {
+          user-select: none;
+          outline: none;
+        }
+        .logout {
+          line-height: 1.8;
+        }
       }
     }
 
