@@ -9,12 +9,12 @@
           <b-menu-item
             icon="information-outline"
             icon-pack="mdi"
-            active
+            :active="activeMenu('index')"
             label="后台管理首页"
             tag="router-link"
-            to="/"
+            :to="{ name: 'index' }"
           ></b-menu-item>
-          <b-menu-item icon="settings" icon-pack="mdi">
+          <b-menu-item icon="settings" icon-pack="mdi" expanded>
             <template slot="label" slot-scope="props">
               常用管理
               <b-icon
@@ -26,29 +26,24 @@
             <b-menu-item
               icon="account"
               icon-pack="mdi"
+              :active="activeMenu('user')"
               label="用户管理"
               tag="router-link"
-              to="/user"
+              :to="{ name: 'user' }"
             ></b-menu-item>
             <b-menu-item
               icon="cellphone-link"
+              :active="activeMenu('order')"
               icon-pack="mdi"
-              label="Devices"
+              label="订单管理"
             ></b-menu-item>
             <b-menu-item
               icon="cash-multiple"
+              :active="activeMenu('goods')"
               icon-pack="mdi"
-              label="Payments"
-              disabled
+              label="商品管理"
             ></b-menu-item>
           </b-menu-item>
-          <b-menu-item icon="account" icon-pack="mdi" label="My Account">
-            <b-menu-item label="Account data"></b-menu-item>
-            <b-menu-item label="Addresses"></b-menu-item>
-          </b-menu-item>
-        </b-menu-list>
-        <b-menu-list label="Actions">
-          <b-menu-item label="Logout"></b-menu-item>
         </b-menu-list>
       </b-menu>
     </div>
@@ -78,7 +73,7 @@
                   pack="mdi"
                 ></b-icon>
                 <div class="media-content">
-                  <h3>Exit Account</h3>
+                  <h3>退出</h3>
                 </div>
               </div>
             </b-dropdown-item>
@@ -93,7 +88,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    activeMenu(routerName) {
+      return this.$nuxt.$route.name === routerName;
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -164,7 +165,78 @@ export default {};
     }
 
     .admin-main-content {
-      padding: 0.75rem;
+      padding: 1.5rem;
+
+      .notification {
+        box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.1);
+        .media {
+          align-items: center;
+          .media-left {
+            margin-right: 1.5rem;
+          }
+        }
+      }
+
+      .user-list-filter {
+        .control.has-icons-left {
+          box-sizing: content-box;
+          width: calc(100% - 2.5em);
+          .input {
+            padding-left: 2.5em;
+          }
+          .icon.is-left {
+            font-size: 0.8em;
+            padding: 0.6em;
+          }
+        }
+
+        .field-label {
+          padding-top: 0.75em;
+
+          .label {
+            font-size: 11px;
+            width: 80px;
+            font-weight: 400;
+          }
+        }
+
+        .control {
+          box-sizing: content-box;
+
+          select {
+            padding: 0.65em 2.5em 0.65em 0.6em;
+            min-width: 10em;
+            height: 100%;
+          }
+
+          .select {
+            height: 100%;
+          }
+          .select::after {
+            top: calc(50%);
+            border-color: #595d6e;
+          }
+        }
+      }
+
+      .b-table {
+        width: 100%;
+        table {
+          user-select: none;
+          outline: none;
+          width: 100%;
+
+          .th-wrap {
+            font-size: 11px;
+            line-height: 2;
+          }
+
+          td {
+            font-size: 11px;
+            line-height: 2;
+          }
+        }
+      }
     }
   }
 }

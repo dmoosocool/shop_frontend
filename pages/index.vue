@@ -59,7 +59,9 @@ export default {
     };
   },
   async asyncData({ $axios }) {
-    await $axios.get('/auth/test');
+    try {
+      await $axios.get('/auth/test');
+    } catch (e) {}
   },
 
   head() {
