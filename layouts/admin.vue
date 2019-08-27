@@ -62,7 +62,10 @@
               class="navbar-item button is-primary is-unselectable"
               role="button"
             >
-              <span>Hello~ {{ $store.state.user.name }}</span>
+              <span
+                >Hello~
+                {{ $store.state.user && $store.state.user.nickname }}</span
+              >
               <b-icon icon="menu-down"></b-icon>
             </a>
             <b-dropdown-item aria-role="listitem">
@@ -89,8 +92,10 @@
 
 <script>
 export default {
+  middleware: 'check-token',
   methods: {
     activeMenu(routerName) {
+      console.log(this.$nuxt.$route.name);
       return this.$nuxt.$route.name === routerName;
     }
   }

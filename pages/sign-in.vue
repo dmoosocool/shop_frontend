@@ -81,13 +81,17 @@ export default {
       password: ''
     };
   },
-
+  head() {
+    return {
+      title: '登陆'
+    };
+  },
   methods: {
     async signin() {
       const { email, password } = this;
       try {
         const result = await this.$axios.$post('/auth/login', {
-          name: email,
+          email,
           password
         });
 

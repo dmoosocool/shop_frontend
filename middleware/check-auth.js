@@ -1,9 +1,9 @@
 import { getUserFromCookie, getUserFromLocalStorage } from '~/utils/auth.js';
 
-export default function({ isServer, store, req }) {
-  if (isServer && !req) return;
+export default function({ store, req }) {
+  if (process.server && !req) return;
 
-  const loggedUser = isServer
+  const loggedUser = process.server
     ? getUserFromCookie(req)
     : getUserFromLocalStorage();
 

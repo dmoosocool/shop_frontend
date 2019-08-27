@@ -58,11 +58,6 @@ export default {
       loggedUser: this.$store.state.user
     };
   },
-  async asyncData({ $axios }) {
-    try {
-      await $axios.get('/auth/test');
-    } catch (e) {}
-  },
 
   head() {
     return {
