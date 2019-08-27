@@ -20,7 +20,7 @@
         <div class="user-list-header-action column is-one-fifth"></div>
       </div>
       <div class="user-list-filter columns">
-        <div class="column is-three-fifths">
+        <div class="column is-three-quarters">
           <div class="columns">
             <div class="column is-one-quarter">
               <b-field>

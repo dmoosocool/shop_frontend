@@ -24,6 +24,7 @@ export default function({ $axios, redirect, app, store }) {
     if (error.request.responseURL.includes('/auth/') > -1 && status === 401) {
       localStorage.removeItem('user');
       store.commit('SET_USER', null);
+      redirect('/sign-in');
     } else if (status !== 404) {
       // handle this error, will not redirect to error page..
       return {};
