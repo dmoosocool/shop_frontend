@@ -95,7 +95,6 @@ export default {
   middleware: 'check-token',
   methods: {
     activeMenu(routerName) {
-      console.log(this.$nuxt.$route.name);
       return this.$nuxt.$route.name === routerName;
     }
   }
