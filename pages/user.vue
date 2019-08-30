@@ -30,6 +30,7 @@
                   type="search"
                   icon-pack="fas"
                   icon="search"
+                  :value="listQuery.email"
                 >
                 </b-input>
               </b-field>
@@ -54,7 +55,12 @@
 
         <div class="column search-bar">
           <div class="notification is-twitter">
-            <b-button type="is-primary" icon-left="search" icon-pack="fas">
+            <b-button
+              type="is-primary"
+              icon-left="search"
+              icon-pack="fas"
+              @click="queryList()"
+            >
               <span>查询</span>
             </b-button>
 
@@ -70,7 +76,7 @@
       </div>
       <div class="user-list-table columns">
         <b-table
-          :data="tableData"
+          :data="userList"
           :check-row.sync="checkedRows"
           paginated
           per-page="10"
@@ -93,30 +99,25 @@
               {{ props.row.id }}
             </b-table-column>
 
-            <b-table-column
-              label="昵称"
-              field="first_name"
-              width="150"
-              sortable
-            >
-              {{ props.row.first_name }}
+            <b-table-column label="昵称" field="nickname" width="150" sortable>
+              {{ props.row.nickname }}
             </b-table-column>
 
-            <b-table-column
-              label="电子邮箱"
-              field="last_name"
-              width="150"
-              sortable
-            >
-              {{ props.row.last_name }}
+            <b-table-column label="电子邮箱" field="email" width="150" sortable>
+              {{ props.row.email }}
             </b-table-column>
 
             <b-table-column label="注册时间" field="date" sortable>
-              {{ props.row.date }}
+              {{ props.row.created }}
             </b-table-column>
 
             <b-table-column label="修改时间" field="date" sortable>
-              {{ props.row.date }}
+              {{ props.row.updated }}
+            </b-table-column>
+
+            <b-table-column label="类型" field="type" sortable>
+              <span></span>
+              {{ props.row.type == '1' ? '成员' : '管理员' }}
             </b-table-column>
 
             <b-table-column label="性别" field="gender" width="200" sortable>
@@ -124,15 +125,13 @@
                 <b-icon
                   pack="fas"
                   :style="
-                    `color: ${
-                      props.row.gender === 'Male' ? '#0abb87' : '#fd397a'
-                    };`
+                    `color: ${props.row.sex == '1' ? '#0abb87' : '#fd397a'};`
                   "
-                  :icon="props.row.gender === 'Male' ? 'mars' : 'venus'"
+                  :icon="props.row.sex == '1' ? 'mars' : 'venus'"
                 >
                 </b-icon>
               </span>
-              {{ props.row.gender === 'Male' ? '男' : '女' }}
+              {{ props.row.sex == '1' ? '男' : '女' }}
             </b-table-column>
 
             <b-table-column label="操作" field="actions" width="240">
@@ -161,55 +160,33 @@ export default {
   layout: 'admin',
   middleware: 'authenticated',
   data() {
-    const tableData = [
-      {
-        id: 1,
-        first_name: 'Jesse',
-        last_name: 'Simmons@gmail.com',
-        date: '2016-10-15 13:43:27',
-        gender: 'Male'
-      },
-      {
-        id: 2,
-        first_name: 'John',
-        last_name: 'Jacobs@gmail.com',
-        date: '2016-12-15 06:00:53',
-        gender: 'Male'
-      },
-      {
-        id: 3,
-        first_name: 'Tina',
-        last_name: 'Gilbert@gmail.com',
-        date: '2016-04-26 06:26:28',
-        gender: 'Female'
-      },
-      {
-        id: 4,
-        first_name: 'Clarence',
-        last_name: 'Flores@gmail.com',
-        date: '2016-04-10 10:28:46',
-        gender: 'Male'
-      },
-      {
-        id: 5,
-        first_name: 'Anne',
-        last_name: 'Lee@gmail.com',
-        date: '2016-12-06 14:38:38',
-        gender: 'Female'
-      }
-    ];
     return {
       title: '管理后台-用户管理',
       loggedUser: this.$store.state.user,
       isPublic: false,
-      tableData,
       checkedRows: [],
-      checkboxPosition: 'left'
+      checkboxPosition: 'left',
+      listQuery: {
+        email: ''
+      }
     };
   },
   head() {
     return {
       title: this.title
+    };
+  },
+
+  methods: {
+    queryList() {
+      console.log(this.listQuery);
+    }
+  },
+
+  async asyncData({ $axios }) {
+    const userList = await $axios.get('/users/');
+    return {
+      userList: userList.data
     };
   }
 };

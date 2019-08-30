@@ -58,7 +58,6 @@ export default {
       loggedUser: this.$store.state.user
     };
   },
-
   head() {
     return {
       title: this.title
