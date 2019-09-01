@@ -25,28 +25,32 @@
             <div class="column is-one-quarter">
               <b-field>
                 <b-input
-                  placeholder="搜索"
+                  v-model="listQuery.email"
+                  placeholder="搜索邮箱"
                   size="is-default"
                   type="search"
                   icon-pack="fas"
                   icon="search"
-                  :value="listQuery.email"
                 >
                 </b-input>
               </b-field>
             </div>
 
             <div class="column">
-              <b-field label="用户状态" horizontal class="inline-flex">
-                <b-select>
-                  <option checked value="flint">Flint</option>
-                  <option value="silver">Silver</option>
+              <b-field label="用户类型" horizontal class="inline-flex">
+                <b-select v-model="listQuery.type">
+                  <option checked value="">请选择用户类型</option>
+                  <option value="0">管理员</option>
+                  <option value="1">会员</option>
                 </b-select>
               </b-field>
-              <b-field label="类型" horizontal class="inline-flex">
-                <b-select>
-                  <option value="flint">Flint</option>
-                  <option value="silver">Silver</option>
+
+              <b-field label="用户性别" horizontal class="inline-flex">
+                <b-select v-model="listQuery.sex">
+                  <option value="">请选择用户性别</option>
+                  <option value="0">女</option>
+                  <option value="1">男</option>
+                  <option value="2">其他</option>
                 </b-select>
               </b-field>
             </div>
@@ -78,6 +82,7 @@
         <b-table
           :data="userList"
           :check-row.sync="checkedRows"
+          :loading="tableLoading"
           paginated
           per-page="10"
           aria-next-label="下一页"
@@ -90,15 +95,6 @@
           :checkbox-position="checkboxPosition"
         >
           <template slot-scope="props">
-            <b-table-column label="编号" field="id" width="50" numeric>
-              <template slot="header" slot-scope="{ column }">
-                <b-tooltip :label="column.label" dashed>
-                  {{ column.label }}
-                </b-tooltip>
-              </template>
-              {{ props.row.id }}
-            </b-table-column>
-
             <b-table-column label="昵称" field="nickname" width="150" sortable>
               {{ props.row.nickname }}
             </b-table-column>
@@ -149,6 +145,17 @@
               </span>
             </b-table-column>
           </template>
+
+          <template slot="empty">
+            <section class="section">
+              <div class="content has-text-grey has-text-centered">
+                <p>
+                  <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
+                </p>
+                <p>暂无数据.</p>
+              </div>
+            </section>
+          </template>
         </b-table>
       </div>
     </div>
@@ -166,9 +173,13 @@ export default {
       isPublic: false,
       checkedRows: [],
       checkboxPosition: 'left',
+      tableLoading: true,
       listQuery: {
-        email: ''
-      }
+        email: '',
+        type: '',
+        sex: ''
+      },
+      userList: []
     };
   },
   head() {
@@ -177,17 +188,38 @@ export default {
     };
   },
 
-  methods: {
-    queryList() {
-      console.log(this.listQuery);
-    }
+  async asyncData({ $axios }) {
+    const userList = await $axios.$get('/users/');
+
+    return {
+      userList,
+      tableLoading: false
+    };
   },
 
-  async asyncData({ $axios }) {
-    const userList = await $axios.get('/users/');
-    return {
-      userList: userList.data
-    };
+  methods: {
+    queryList() {
+      this.getUserList(this.listQuery);
+    },
+
+    async getUserList(params) {
+      this.tableLoading = true;
+      for (const i in params) {
+        if (params[i] === '') {
+          delete params[i];
+        }
+      }
+
+      const userList = await this.$axios.$get('/users/', { params });
+
+      this.tableLoading = false;
+      this.userList = userList;
+      this.listQuery = {
+        email: params.email || '',
+        type: params.type || '',
+        sex: params.sex || ''
+      };
+    }
   }
 };
 </script>
@@ -204,6 +236,10 @@ export default {
 
   .user-list-filter {
     padding: 1.5rem;
+  }
+
+  .user-list-table .table-wrapper {
+    min-height: 200px;
   }
 
   .columns {
