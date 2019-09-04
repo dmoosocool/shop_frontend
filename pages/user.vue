@@ -72,7 +72,12 @@
               <span>添加</span>
             </b-button>
 
-            <b-button type="is-primary" icon-left="trash" icon-pack="fas">
+            <b-button
+              type="is-primary"
+              icon-left="trash"
+              icon-pack="fas"
+              @click="deleteMultUser()"
+            >
               <span>批量删除</span>
             </b-button>
           </div>
@@ -81,7 +86,7 @@
       <div class="user-list-table columns">
         <b-table
           :data="userList"
-          :check-row.sync="checkedRows"
+          :checked-row="checkedRows"
           :loading="tableLoading"
           paginated
           per-page="10"
@@ -93,6 +98,7 @@
           focusable
           striped
           :checkbox-position="checkboxPosition"
+          @check="tableCheck"
         >
           <template slot-scope="props">
             <b-table-column label="昵称" field="nickname" width="150" sortable>
@@ -171,7 +177,7 @@ export default {
       title: '管理后台-用户管理',
       loggedUser: this.$store.state.user,
       isPublic: false,
-      checkedRows: [],
+      checkedRows: null,
       checkboxPosition: 'left',
       tableLoading: true,
       listQuery: {
@@ -190,7 +196,6 @@ export default {
 
   async asyncData({ $axios }) {
     const userList = await $axios.$get('/users/');
-
     return {
       userList,
       tableLoading: false
@@ -202,6 +207,44 @@ export default {
       this.getUserList(this.listQuery);
     },
 
+    deleteMultUser() {
+      const ids = [];
+      this.checkedRows.forEach((element) => {
+        ids.push(element.id);
+      });
+
+      const idParam = ids.join(',');
+      this.deleteUser(idParam);
+    },
+
+    tableCheck(checkedList) {
+      this.checkedRows = checkedList;
+    },
+
+    // 删除table组件中的数据.
+    tableDataDelete(id) {
+      const delArr = id.split(',');
+      const newUserList = [];
+      this.userList.forEach((element) => {
+        if (!delArr.includes(element.id)) {
+          newUserList.push(element);
+        }
+      });
+      this.userList = newUserList;
+    },
+
+    // 请求删除用户接口.
+    async deleteUser(id) {
+      if (id) {
+        this.tableDataDelete(id);
+        const resp = await this.$axios.$delete('/users/', { data: { id } });
+        if (resp) {
+          this.$toast.success('删除用户成功');
+        }
+      }
+    },
+
+    // 获取用户列表用于查询.
     async getUserList(params) {
       this.tableLoading = true;
       for (const i in params) {
