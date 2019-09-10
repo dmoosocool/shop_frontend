@@ -1,15 +1,13 @@
-<!-- @format -->
-
 <template>
   <div id="admin-users">
     <b-notification type="is-warning" icon-pack="mdi" has-icon>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio assumenda nulla esse animi pariatur quas qui
-      ipsum sed, quam nesciunt unde laudantium eum voluptate, ratione asperiores. Ipsam vitae vel repellat maiores
-      placeat aperiam deserunt voluptatibus minus libero sed nam, possimus repudiandae provident nulla consequatur dolor
-      distinctio, magnam culpa quam. Optio aspernatur earum, ea, mollitia quam voluptas, in ratione aliquam debitis
-      culpa fugit repudiandae. Doloremque iure aliquam eligendi officiis neque consequatur sit veritatis repellendus
-      laudantium sequi cupiditate dicta illo laborum magni earum praesentium dolores deserunt nulla, eaque reiciendis.
-      Eligendi cum veritatis dolore, autem nesciunt minus? Molestias porro natus recusandae nam in?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime accusantium consequatur doloremque facilis, a eum
+      tempora corporis porro iusto consequuntur. Eveniet consectetur minima qui ipsam suscipit reiciendis pariatur dolor
+      quam. Ipsam omnis ratione necessitatibus sint est dolor possimus dicta praesentium, sed aliquam tempora
+      aspernatur? Consectetur adipisci doloribus expedita voluptas voluptatibus, repellendus ullam explicabo officia quo
+      dolorem et eaque enim iusto assumenda ratione doloremque repellat provident tempora a nulla nisi, recusandae, ad
+      sunt corporis! Ut nam rerum ea eum distinctio hic autem dolores non amet repudiandae illo numquam, rem minus
+      pariatur, natus dignissimos obcaecati error et necessitatibus, doloremque deserunt veritatis quis.
     </b-notification>
 
     <div class="user-list panel-box-shadow">
@@ -209,7 +207,6 @@ export default {
 
     tableUpdateUser(row) {
       const {id, email, nickname} = row;
-      console.log(id, email);
       this.$buefy.modal.open({
         parent: this,
         component: editUserForm,
@@ -220,6 +217,7 @@ export default {
         },
         events: {
           onConfirm: (params) => {
+            // eslint-disable-next-line no-console
             console.log(params);
           },
         },

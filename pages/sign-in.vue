@@ -88,6 +88,7 @@ export default {
           window.localStorage.setItem('user', JSON.stringify(result));
           this.$router.replace('/');
         }
+        // eslint-disable-next-line no-empty
       } catch (e) {}
     },
   },

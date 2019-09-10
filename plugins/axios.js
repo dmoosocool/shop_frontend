@@ -1,6 +1,4 @@
-/** @format */
-
-export default function({$axios, redirect, app, store}) {
+export default function({$axios, app, store}) {
   $axios.onRequest((config) => {
     if (store.getters.loggedUser) {
       const {token} = store.getters.loggedUser;
