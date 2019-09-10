@@ -1,7 +1,9 @@
-export default function({ $axios, redirect, app, store }) {
+/** @format */
+
+export default function({$axios, redirect, app, store}) {
   $axios.onRequest((config) => {
     if (store.getters.loggedUser) {
-      const { token } = store.getters.loggedUser;
+      const {token} = store.getters.loggedUser;
       // auto set Bearer token.
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -12,11 +14,11 @@ export default function({ $axios, redirect, app, store }) {
     const {
       response: {
         status, // http状态码.
-        data: { message }
-      }
+        data: {message},
+      },
     } = error;
 
-    const { $toast } = app;
+    const {$toast} = app;
 
     $toast.global.my_error();
     $toast.error(message);

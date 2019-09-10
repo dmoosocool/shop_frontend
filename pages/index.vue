@@ -1,3 +1,5 @@
+<!-- @format -->
+
 <template>
   <div id="admin-index">
     <div class="tile is-ancestor">
@@ -51,17 +53,16 @@
 export default {
   layout: 'admin',
   middleware: 'authenticated',
-
   data() {
     return {
       title: '后台首页',
-      loggedUser: this.$store.state.user
+      loggedUser: this.$store.state.user,
     };
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
     };
-  }
+  },
 };
 </script>

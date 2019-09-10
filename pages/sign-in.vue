@@ -31,13 +31,7 @@
                   </b-field>
 
                   <b-field label="Password">
-                    <b-input
-                      v-model="password"
-                      type="password"
-                      required
-                      password-reveal
-                    >
-                    </b-input>
+                    <b-input v-model="password" type="password" required password-reveal> </b-input>
                   </b-field>
 
                   <div class="field">
@@ -53,12 +47,7 @@
                     </div>
 
                     <div class="control">
-                      <b-button
-                        class="is-outlined"
-                        tag="router-link"
-                        to="/password-recovery"
-                        type="is-black"
-                      >
+                      <b-button class="is-outlined" tag="router-link" to="/password-recovery" type="is-black">
                         Forgot Password?
                       </b-button>
                     </div>
@@ -78,21 +67,21 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
     };
   },
   head() {
     return {
-      title: '登陆'
+      title: '登陆',
     };
   },
   methods: {
     async signin() {
-      const { email, password } = this;
+      const {email, password} = this;
       try {
         const result = await this.$axios.$post('/auth/login', {
           email,
-          password
+          password,
         });
 
         if (result) {
@@ -100,8 +89,8 @@ export default {
           this.$router.replace('/');
         }
       } catch (e) {}
-    }
-  }
+    },
+  },
 };
 </script>
 

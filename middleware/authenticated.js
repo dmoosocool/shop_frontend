@@ -1,4 +1,6 @@
-export default function({ store, redirect }) {
+/** @format */
+
+export default function({store, redirect}) {
   if (!store.getters.isAuthenticated) {
     return redirect('/sign-in');
   }

@@ -1,13 +1,15 @@
+/** @format */
+
 export const state = () => {
   return {
-    user: null
+    user: null,
   };
 };
 
 export const mutations = {
   SET_USER(state, user) {
     state.user = user || null;
-  }
+  },
 };
 
 export const getters = {
@@ -17,5 +19,5 @@ export const getters = {
 
   loggedUser(state) {
     return state.user;
-  }
+  },
 };

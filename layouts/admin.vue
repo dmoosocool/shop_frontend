@@ -12,16 +12,12 @@
             :active="activeMenu('index')"
             label="后台管理首页"
             tag="router-link"
-            :to="{ name: 'index' }"
+            :to="{name: 'index'}"
           ></b-menu-item>
           <b-menu-item icon="settings" icon-pack="mdi" expanded>
             <template slot="label" slot-scope="props">
               常用管理
-              <b-icon
-                class="is-pulled-right"
-                icon-pack="mdi"
-                :icon="props.expanded ? 'menu-down' : 'menu-up'"
-              ></b-icon>
+              <b-icon class="is-pulled-right" icon-pack="mdi" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
             </template>
             <b-menu-item
               icon="account"
@@ -29,7 +25,7 @@
               :active="activeMenu('user')"
               label="用户管理"
               tag="router-link"
-              :to="{ name: 'user' }"
+              :to="{name: 'user'}"
             ></b-menu-item>
             <b-menu-item
               icon="cellphone-link"
@@ -51,30 +47,14 @@
     <div class="admin-main column">
       <div class="admin-main-header columns">
         <div class="column is-2 is-offset-10">
-          <b-dropdown
-            hoverable
-            aria-role="menu"
-            class="admin-user-action"
-            position="is-bottom-left"
-          >
-            <a
-              slot="trigger"
-              class="navbar-item button is-primary is-unselectable"
-              role="button"
-            >
-              <span
-                >Hello~
-                {{ $store.state.user && $store.state.user.nickname }}</span
-              >
+          <b-dropdown hoverable aria-role="menu" class="admin-user-action" position="is-bottom-left">
+            <a slot="trigger" class="navbar-item button is-primary is-unselectable" role="button">
+              <span>Hello~ {{ $store.state.user && $store.state.user.nickname }}</span>
               <b-icon icon="menu-down"></b-icon>
             </a>
             <b-dropdown-item aria-role="listitem">
               <div class="media logout">
-                <b-icon
-                  class="media-left"
-                  icon="exit-to-app"
-                  pack="mdi"
-                ></b-icon>
+                <b-icon class="media-left" icon="exit-to-app" pack="mdi"></b-icon>
                 <div class="media-content">
                   <h3>退出</h3>
                 </div>
@@ -96,8 +76,8 @@ export default {
   methods: {
     activeMenu(routerName) {
       return this.$nuxt.$route.name === routerName;
-    }
-  }
+    },
+  },
 };
 </script>
 

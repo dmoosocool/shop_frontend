@@ -1,13 +1,15 @@
+<!-- @format -->
+
 <template>
   <div id="admin-users">
     <b-notification type="is-warning" icon-pack="mdi" has-icon>
-      The Metronic Datatable component supports local or remote data source. For
-      remote data you can specify a remote data source that returns data in
-      JSON/JSONP format. In this example the grid fetches its data from a remote
-      JSON file. It also defines the schema model of the data source received
-      from the remote data source. In addition to the visualization, the
-      Datatable provides built-in support for operations over data such as
-      sorting, filtering and paging performed in user browser(frontend).
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio assumenda nulla esse animi pariatur quas qui
+      ipsum sed, quam nesciunt unde laudantium eum voluptate, ratione asperiores. Ipsam vitae vel repellat maiores
+      placeat aperiam deserunt voluptatibus minus libero sed nam, possimus repudiandae provident nulla consequatur dolor
+      distinctio, magnam culpa quam. Optio aspernatur earum, ea, mollitia quam voluptas, in ratione aliquam debitis
+      culpa fugit repudiandae. Doloremque iure aliquam eligendi officiis neque consequatur sit veritatis repellendus
+      laudantium sequi cupiditate dicta illo laborum magni earum praesentium dolores deserunt nulla, eaque reiciendis.
+      Eligendi cum veritatis dolore, autem nesciunt minus? Molestias porro natus recusandae nam in?
     </b-notification>
 
     <div class="user-list panel-box-shadow">
@@ -59,12 +61,7 @@
 
         <div class="column search-bar">
           <div class="notification is-twitter">
-            <b-button
-              type="is-primary"
-              icon-left="search"
-              icon-pack="fas"
-              @click="queryList()"
-            >
+            <b-button type="is-primary" icon-left="search" icon-pack="fas" @click="queryList()">
               <span>查询</span>
             </b-button>
 
@@ -72,12 +69,7 @@
               <span>添加</span>
             </b-button>
 
-            <b-button
-              type="is-primary"
-              icon-left="trash"
-              icon-pack="fas"
-              @click="deleteMultUser()"
-            >
+            <b-button type="is-primary" icon-left="trash" icon-pack="fas" @click="deleteMultUser()">
               <span>批量删除</span>
             </b-button>
           </div>
@@ -126,9 +118,7 @@
               <span>
                 <b-icon
                   pack="fas"
-                  :style="
-                    `color: ${props.row.sex == '1' ? '#0abb87' : '#fd397a'};`
-                  "
+                  :style="`color: ${props.row.sex == '1' ? '#0abb87' : '#fd397a'};`"
                   :icon="props.row.sex == '1' ? 'mars' : 'venus'"
                 >
                 </b-icon>
@@ -138,14 +128,10 @@
 
             <b-table-column label="操作" field="actions" width="240">
               <span>
-                <b-button
-                  type="is-warning"
-                  size="is-small"
-                  icon-left="lead-pencil"
-                >
+                <b-button type="is-warning" size="is-small" icon-left="lead-pencil" @click="tableUpdateUser(props.row)">
                   <span>修改</span>
                 </b-button>
-                <b-button type="is-danger" size="is-small" icon-left="delete">
+                <b-button type="is-danger" size="is-small" icon-left="delete" @click="tableDeleteUser(props.row)">
                   <span>删除</span>
                 </b-button>
               </span>
@@ -169,6 +155,8 @@
 </template>
 
 <script>
+import editUserForm from '../components/editUserForm';
+
 export default {
   layout: 'admin',
   middleware: 'authenticated',
@@ -183,28 +171,62 @@ export default {
       listQuery: {
         email: '',
         type: '',
-        sex: ''
+        sex: '',
       },
-      userList: []
+      userList: [],
+      isEditUserModalActive: false, // 用于显示隐藏编辑框.
     };
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
     };
   },
 
-  async asyncData({ $axios }) {
+  async asyncData({$axios}) {
     const userList = await $axios.$get('/users/');
     return {
       userList,
-      tableLoading: false
+      tableLoading: false,
     };
   },
 
   methods: {
     queryList() {
       this.getUserList(this.listQuery);
+    },
+
+    tableDeleteUser(row) {
+      const {id, email} = row;
+      this.$buefy.dialog.confirm({
+        title: '温馨提示',
+        cancelText: '取消',
+        confirmText: '确定',
+        message: `是否要删除 <b>${email}</b> 这个账号?`,
+        onConfirm: () => this.deleteUser(id),
+      });
+    },
+
+    tableUpdateUser(row) {
+      const {id, email, nickname} = row;
+      console.log(id, email);
+      this.$buefy.modal.open({
+        parent: this,
+        component: editUserForm,
+        props: {
+          id,
+          email,
+          nickname,
+        },
+        events: {
+          onConfirm: (params) => {
+            console.log(params);
+          },
+        },
+        hasModelCard: true,
+        canCancel: ['escape', 'x'],
+        customClass: 'custom-class custom-class-2',
+      });
     },
 
     deleteMultUser() {
@@ -237,7 +259,7 @@ export default {
     async deleteUser(id) {
       if (id) {
         this.tableDataDelete(id);
-        const resp = await this.$axios.$delete('/users/', { data: { id } });
+        const resp = await this.$axios.$delete('/users/', {data: {id}});
         if (resp) {
           this.$toast.success('删除用户成功');
         }
@@ -253,17 +275,17 @@ export default {
         }
       }
 
-      const userList = await this.$axios.$get('/users/', { params });
+      const userList = await this.$axios.$get('/users/', {params});
 
       this.tableLoading = false;
       this.userList = userList;
       this.listQuery = {
         email: params.email || '',
         type: params.type || '',
-        sex: params.sex || ''
+        sex: params.sex || '',
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
