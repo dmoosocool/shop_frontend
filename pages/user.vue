@@ -217,8 +217,21 @@ export default {
         },
         events: {
           onConfirm: (params) => {
-            // eslint-disable-next-line no-console
-            console.log(params);
+            const {password, repassword} = params;
+            if (!password && !repassword) {
+              return;
+            }
+
+            if (password !== repassword) {
+              this.$buefy.toast.open({
+                message: `<b>温馨提示</b>: <b>新密码</b> 与 <b>确认密码</b> 不一致, 请检查后再提交.`,
+                position: 'is-top',
+                type: 'is-danger',
+              });
+              return;
+            }
+
+            this.updateUser(params);
           },
         },
         hasModelCard: true,
@@ -282,6 +295,12 @@ export default {
         type: params.type || '',
         sex: params.sex || '',
       };
+    },
+
+    async updateUser(params) {
+      const {id, password, repassword} = params;
+      const resp = await this.$axios.$put(`/users/${id}/password`, {password, newPassword: repassword});
+      console.log(resp);
     },
   },
 };
