@@ -21,27 +21,18 @@
           </b-input>
         </b-field>
 
+        <b-field label="旧密码">
+          <b-input v-model="editFormData.password" type="password" password-reveal placeholder="新密码" required>
+          </b-input>
+        </b-field>
+
         <b-field label="新密码">
-          <b-input
-            v-model="editFormData.password"
-            type="password"
-            :value="password"
-            password-reveal
-            placeholder="新密码"
-            required
-          >
+          <b-input v-model="editFormData.newPassword" type="password" password-reveal placeholder="新密码" required>
           </b-input>
         </b-field>
 
         <b-field label="确认密码">
-          <b-input
-            v-model="editFormData.repassword"
-            type="password"
-            :value="repassword"
-            password-reveal
-            placeholder="确认密码"
-            required
-          >
+          <b-input v-model="editFormData.rePassword" type="password" password-reveal placeholder="确认密码" required>
           </b-input>
         </b-field>
       </section>
@@ -70,25 +61,18 @@ export default {
       type: String,
       default: '',
     },
-    password: {
-      type: String,
-      default: '',
-    },
-    repassword: {
-      type: String,
-      default: '',
-    },
   },
   data() {
     return {
       editFormData: {
         nickname: this.nickname,
         email: this.email,
-        password: this.password,
-        repassword: this.repassword,
+        password: '',
+        newPassword: '',
+        rePassword: '',
       },
     };
-  }, // ['nickname', 'email', 'password', 'repassword'],
+  },
   methods: {
     checkForm(e) {
       e.preventDefault();

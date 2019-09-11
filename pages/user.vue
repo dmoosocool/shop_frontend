@@ -173,6 +173,7 @@ export default {
       },
       userList: [],
       isEditUserModalActive: false, // 用于显示隐藏编辑框.
+      updateModal: '', // 用于存储编辑框组件.
     };
   },
   head() {
@@ -207,7 +208,7 @@ export default {
 
     tableUpdateUser(row) {
       const {id, email, nickname} = row;
-      this.$buefy.modal.open({
+      this.updateModal = this.$buefy.modal.open({
         parent: this,
         component: editUserForm,
         props: {
@@ -217,12 +218,12 @@ export default {
         },
         events: {
           onConfirm: (params) => {
-            const {password, repassword} = params;
-            if (!password && !repassword) {
+            const {password, newPassword, rePassword} = params;
+            if (!password || !rePassword || !newPassword) {
               return;
             }
 
-            if (password !== repassword) {
+            if (newPassword !== rePassword) {
               this.$buefy.toast.open({
                 message: `<b>温馨提示</b>: <b>新密码</b> 与 <b>确认密码</b> 不一致, 请检查后再提交.`,
                 position: 'is-top',
@@ -298,9 +299,12 @@ export default {
     },
 
     async updateUser(params) {
-      const {id, password, repassword} = params;
-      const resp = await this.$axios.$put(`/users/${id}/password`, {password, newPassword: repassword});
-      console.log(resp);
+      const {id, password, newPassword} = params;
+      const resp = await this.$axios.$put(`/users/${id}/password`, {password, newPassword});
+      if (resp) {
+        this.updateModal.close();
+        this.$toast.success('修改用户成功');
+      }
     },
   },
 };
