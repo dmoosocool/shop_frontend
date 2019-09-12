@@ -38,6 +38,8 @@
               :active="activeMenu('goods')"
               icon-pack="mdi"
               label="商品管理"
+              tag="router-link"
+              :to="{name: 'goods'}"
             ></b-menu-item>
           </b-menu-item>
         </b-menu-list>

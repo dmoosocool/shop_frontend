@@ -82,8 +82,12 @@ export default {
    * Setting proxy.
    */
   proxy: {
+    /** 验权相关 */
     '/auth/': 'http://localhost:3001/',
+    /** 用户相关 */
     '/users/': 'http://localhost:3001/',
+    /** 商品相关 */
+    '/posts/': 'http://localhost:3001/',
   },
 
   /**
