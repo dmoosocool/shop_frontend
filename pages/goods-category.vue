@@ -14,41 +14,21 @@
       <div class="user-list-header columns">
         <div class="user-list-header-title column is-one-fifth">
           <b-icon pack="fas" icon="user"></b-icon>
-          <span>商品管理</span>
+          <span>商品分类管理</span>
         </div>
         <div class="column"></div>
         <div class="user-list-header-action column is-one-fifth"></div>
       </div>
       <div class="user-list-filter columns">
-        <div class="column is-three-quarters">
-          <div class="columns">
-            <div class="column is-one-quarter">
-              <b-field>
-                <b-input
-                  v-model="searchList.goods"
-                  placeholder="搜索商品"
-                  size="is-default"
-                  type="search"
-                  icon-pack="fas"
-                  icon="search"
-                >
-                </b-input>
-              </b-field>
-            </div>
-          </div>
-        </div>
+        <div class="column is-three-quarters"></div>
 
         <div class="column search-bar">
           <div class="notification is-twitter">
-            <b-button type="is-primary" icon-left="search" icon-pack="fas" @click="queryList()">
-              <span>查询</span>
-            </b-button>
-
-            <b-button type="is-primary" icon-left="plus" icon-pack="fas">
+            <b-button type="is-primary" icon-left="plus" icon-pack="fas" @click="addGoodsForm">
               <span>添加</span>
             </b-button>
 
-            <b-button type="is-primary" icon-left="trash" icon-pack="fas" @click="deleteMultUser()">
+            <b-button type="is-primary" icon-left="trash" icon-pack="fas">
               <span>批量删除</span>
             </b-button>
           </div>
@@ -72,28 +52,17 @@
           @check="tableCheck"
         >
           <template slot-scope="props">
-            <b-table-column label="标题" field="title" width="150" sortable>
-              {{ props.row.title }}
+            <b-table-column label="分类名称" field="title" sortable>
+              {{ props.row.name }}
             </b-table-column>
 
-            <b-table-column label="内容" field="content" width="150" sortable>
-              {{ props.row.content }}
+            <b-table-column label="分类别名" field="content" sortable>
+              {{ props.row.alias }}
             </b-table-column>
 
-            <b-table-column label="描述" field="description" sortable>
-              {{ props.row.description }}
-            </b-table-column>
-
-            <b-table-column label="修改时间" field="date" sortable>
-              {{ props.row.updated }}
-            </b-table-column>
-
-            <b-table-column label="操作" field="actions" width="240">
+            <b-table-column label="操作" field="actions" width="100">
               <span>
-                <b-button type="is-warning" size="is-small" icon-left="lead-pencil" @click="tableUpdateUser(props.row)">
-                  <span>修改</span>
-                </b-button>
-                <b-button type="is-danger" size="is-small" icon-left="delete" @click="tableDeleteUser(props.row)">
+                <b-button type="is-danger" size="is-small" icon-left="delete">
                   <span>删除</span>
                 </b-button>
               </span>
@@ -117,6 +86,8 @@
 </template>
 
 <script>
+import addGoodsCategory from '../components/addGoodsCategoryForm';
+
 export default {
   layout: 'admin',
   middleware: 'authenticated',
@@ -131,6 +102,7 @@ export default {
       searchList: {
         goods: '',
       },
+      addGoodsModal: null,
     };
   },
   head() {
@@ -140,7 +112,7 @@ export default {
   },
 
   async asyncData({$axios}) {
-    const queryList = await $axios.$get('/posts/');
+    const queryList = await $axios.$get('/goods-categories/');
     return {
       queryList,
       tableLoading: false,
@@ -150,6 +122,31 @@ export default {
   methods: {
     tableCheck(checkedList) {
       this.checkedRows = checkedList;
+    },
+
+    addGoodsForm() {
+      this.addGoodsModal = this.$buefy.modal.open({
+        parent: this,
+        component: addGoodsCategory,
+        hasModelCard: true,
+        props: {
+          title: '添加商品分类',
+          content: '温馨提示',
+        },
+        events: {
+          onConfirm: (params) => this.addGoods(params),
+        },
+        canCancel: ['escape', 'x'],
+        customClass: 'custom-class custom-class-2',
+      });
+    },
+
+    async addGoods(params) {
+      const resp = await this.$axios.$post('/goods-categories/', params);
+      if (resp) {
+        this.addGoodsModal.close();
+        this.queryList.push(resp);
+      }
     },
   },
 };

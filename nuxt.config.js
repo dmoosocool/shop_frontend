@@ -42,15 +42,15 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@/assets/css/main.scss'],
+  css: ['@/assets/css/main.scss', 'mavon-editor/dist/css/index.css'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/axios'],
+  plugins: ['~/plugins/axios', {src: '@/plugins/vue-mavon-editor', srr: false}],
   /*
    ** Nuxt.js dev-modules
    */
-  devModules: [
+  buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
   ],
@@ -87,7 +87,9 @@ export default {
     /** 用户相关 */
     '/users/': 'http://localhost:3001/',
     /** 商品相关 */
-    '/posts/': 'http://localhost:3001/',
+    '/goods/': 'http://localhost:3001/',
+    /** 商品分类相关 */
+    '/goods-categories/': 'http://localhost:3001/',
   },
 
   /**
@@ -115,7 +117,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {},
+    extend() {},
     babel: {
       presets({isServer}) {
         return [

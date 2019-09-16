@@ -35,11 +35,19 @@
             ></b-menu-item>
             <b-menu-item
               icon="cash-multiple"
-              :active="activeMenu('goods')"
+              :active="activeMenu('good')"
               icon-pack="mdi"
               label="商品管理"
               tag="router-link"
-              :to="{name: 'goods'}"
+              :to="{name: 'good'}"
+            ></b-menu-item>
+            <b-menu-item
+              icon="shape-outline"
+              :active="activeMenu('goods-category')"
+              icon-pack="mdi"
+              label="商品分类管理"
+              tag="router-link"
+              :to="{name: 'goods-category'}"
             ></b-menu-item>
           </b-menu-item>
         </b-menu-list>
